@@ -25,7 +25,7 @@ const Tags = ({ tags }: { tags: string[] }) => {
 const PostItem: React.FC<{ post: Post }> = ({ post }) => (
   <div className="flex flex-row flex-wrap mt-1 justify-between">
     <div className="space-x-2">
-      <Link href={`/post/${post.title}`} className="cursor-pointer text-xl dark:hover:text-white dark:text-gray-400 hover:text-gray-600 duration-200">
+      <Link href={`/post/${post.id}`} className="cursor-pointer text-xl dark:hover:text-white dark:text-gray-400 hover:text-gray-600 duration-200">
         {post.title}
       </Link>
       <Tags tags={post.labels} />
