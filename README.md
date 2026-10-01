@@ -18,6 +18,9 @@
 
 A serverless static blog engine based on GitHub Issue System.
 
+
+## Deployment
+Deployed to Cloudflare Workers at https://qx0g.luckypoem.workers.dev via Cloudflare Workers Builds — pushes to the `main` branch automatically rebuild and redeploy.
 ## usage
 
 see: [usage](./usage.md)
