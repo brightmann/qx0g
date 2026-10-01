@@ -13,7 +13,7 @@ export const fetchPaths = async () => {
 
   return posts.map(post => ({
     params: {
-      id: post.title,
+      id: String(post.number),
     },
   }))
 }
@@ -51,9 +51,9 @@ export const fetchPosts = async () => {
 }
 
 // fetch post data
-export const fetchPost = async (title: string) => {
+export const fetchPost = async (id: string) => {
   const posts = await fetchPosts()
-  return posts.find(post => post.title === title)
+  return posts.find(post => String(post.id) === id)
 }
 
 // fetch tags list
