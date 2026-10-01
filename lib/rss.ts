@@ -20,7 +20,7 @@ const genRSS = (posts: Post[], user: User) => {
   for (const post of posts) {
     feed.item({
       title: post.title,
-      url: `${siteURL}/post/${post.title}`,
+      url: `${siteURL}/post/${post.id}`,
       date: post.created_at,
       description: post.labels
         .filter(label => !process.env.LABELS!.split(',').includes(label))
