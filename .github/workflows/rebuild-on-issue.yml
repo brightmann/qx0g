@@ -1,0 +1,29 @@
+name: rebuild-on-issue
+
+# Posts are GitHub issues labeled `published`, fetched at build time,
+# so an issue event alone doesn't redeploy the site. This workflow pushes
+# an empty commit to trigger Cloudflare Workers Builds whenever a
+# published post is created, edited, labeled, unlabeled, closed, or deleted.
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, closed, reopened, deleted]
+
+jobs:
+  trigger-rebuild:
+    if: >
+      contains(github.event.issue.labels.*.name, 'published') ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'published') ||
+      github.event.action == 'deleted' ||
+      github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push empty commit to trigger Cloudflare rebuild
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: rebuild for issue #${{ github.event.issue.number }} (${{ github.event.action }})"
+          git push
